@@ -1,6 +1,21 @@
+// Copyright (C) 2011-2012 the original author or authors.
+// See the LICENCE.txt file distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 package com.cenusAnalyzerTest
 
-import com.censusAnalyzer.{CensusAnalyzer, CensusAnalyzerExceptionEnums, Country, IndiaCensusDTO}
+import com.censusAnalyzer.censusanalyzer.{CensusAnalyzer, CensusAnalyzerExceptionEnums, Country, IndiaCensusDTO}
 import com.google.gson.Gson
 import org.scalatest.FunSuite
 
@@ -12,17 +27,17 @@ import org.scalatest.FunSuite
 
 class CensusAnalyzerTest extends FunSuite {
 
-  val IndiaCensusCSVFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/IndiaStateCensusData.csv"
+  val IndiaCensusCSVFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/IndiaStateCensusData.csv"
   val IndiaCensusWrongCSVFilePath = "./resources/IndiaStateCensusData.csv"
-  val IndiaCensusWrongCSVFileTypePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/IndiaStateCensusData.txt"
-  val IndiaCensusInvalidDelimiterFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/InvalidDelimitersIndiaStateCensusData.csv"
-  val IndiaCensusInvalidHeaderFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/InvalidHeadersIndiaStateCensusData.csv"
-  val IndiaStateCodeCSVFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/IndiaStateCode.csv"
+  val IndiaCensusWrongCSVFileTypePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/IndiaStateCensusData.txt"
+  val IndiaCensusInvalidDelimiterFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/InvalidDelimitersIndiaStateCensusData.csv"
+  val IndiaCensusInvalidHeaderFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/InvalidHeadersIndiaStateCensusData.csv"
+  val IndiaStateCodeCSVFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/IndiaStateCode.csv"
   val IndiaStateCodeWrongCSVFilePath = "./src/resources/IndiaStateCode.csv"
-  val IndiaStateCodeWrongCSVFileTypePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/IndiaStateCode.txt"
-  val IndiaStateCodeInvalidCSVDelimiterFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/InvalidDelimitersIndiaStateCode.csv"
-  val IndiaStateCodeInvalidCSVHeaderFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/InvalidHeadersIndiaStateCode.csv"
-  val USCensusCSVFilePath = "/home/cheluvesha/IdeaProjects/CensusAnalyzer/src/test/Resources/USCensusData.csv"
+  val IndiaStateCodeWrongCSVFileTypePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/IndiaStateCode.txt"
+  val IndiaStateCodeInvalidCSVDelimiterFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/InvalidDelimitersIndiaStateCode.csv"
+  val IndiaStateCodeInvalidCSVHeaderFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/IndiaStateCensusData.txtInvalidHeadersIndiaStateCode.csv"
+  val USCensusCSVFilePath = "C:/Users/Ruchir Dixit/IdeaProjects/Census_Analyzer/src/test/Resources/USCensusData.csv"
   val CensusObj = new CensusAnalyzer()
 
   test("givenIndianCensusCSVFileWhenCorrectShouldReturnCorrectRecords") {

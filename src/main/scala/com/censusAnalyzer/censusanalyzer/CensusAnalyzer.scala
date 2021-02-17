@@ -1,20 +1,37 @@
-package com.censusAnalyzer
+// Copyright (C) 2011-2012 the original author or authors.
+// See the LICENCE.txt file distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package com.censusAnalyzer.censusanalyzer
 
-import com.censusAnalyzer.Country.Country
+import com.censusAnalyzer.censusanalyzer.Country.Country
 import com.google.gson.Gson
+import com.typesafe.scalalogging.LazyLogging
 
 /***
  * Class performs sorting and imports Gson dependency in order to convert data into
  * json and vice versa
  * used gson dependency added to build.sbt
  */
-class CensusAnalyzer {
+class CensusAnalyzer extends LazyLogging{
   /***
    * used Map collection to store key value pair
    */
   var censusMap: Map[String, CensusDAO] = Map()
   def loadCensusData(country: Country,filepath:String*): Int = {
     censusMap = new CensusLoader().loadData(country,filepath)
+    logger.info("inside loadcensus data")
     censusMap.size
   }
 
@@ -25,6 +42,7 @@ class CensusAnalyzer {
    */
   def sort(choice: Int): String = {
     if (censusMap == null || censusMap.isEmpty) {
+      logger.error(CensusAnalyzerExceptionEnums.NoCensusData.toString)
       throw new CensusAnalyserException(CensusAnalyzerExceptionEnums.NoCensusData)
     }
     // Array data structure to store CSV object
@@ -46,6 +64,7 @@ class CensusAnalyzer {
    * @return string value of sorted data
    */
   def getStateWiseSortedCensusData: String = {
+    logger.info("inside state wise census data")
     sort(1)
   }
   /***
@@ -54,6 +73,7 @@ class CensusAnalyzer {
    * @return string value of sorted data
    */
   def getStateCodeWiseSortedCensusData: String = {
+    logger.info("inside state wise sorted census data")
     sort(2)
   }
   /***
@@ -62,6 +82,7 @@ class CensusAnalyzer {
    * @return string value of sorted data
    */
   def getPopulationWiseSortedCensusData: String = {
+    logger.info("inside population wise census data")
     sort(3)
   }
   /***
@@ -70,6 +91,7 @@ class CensusAnalyzer {
    * @return string value of sorted data
    */
   def getPopulationDensityWiseSortedCensusData: String = {
+    logger.info("inside pop density wise census data")
     sort(4)
   }
   /***
@@ -78,6 +100,7 @@ class CensusAnalyzer {
    * @return string value of sorted data
    */
   def getAreaWiseSortedCensusData: String = {
+    logger.info("inside area wise census data")
     sort(5)
   }
 }

@@ -1,36 +1,47 @@
 
 package com.censusAnalyzer
 
+import java.util
 import com.censusAnalyzer.exception.CensusAnalyzerException
 import com.censusAnalyzer.exception.CensusAnalyzerException.Issue
 
-class CensusAnalyzer {
-  def loadCSVData(filePath: String): Int = {
+import scala.io.Source
+
+object CensusAnalyzer {
+  @throws[CensusAnalyzerException]
+  def loadCSVData(filePath: String, headers: Array[String]): util.ArrayList[util.ArrayList[String]] = {
     try {
-      if(!filePath.endsWith(".csv")) {
+      val table = new util.ArrayList[util.ArrayList[String]]()
+      if (!filePath.endsWith(".csv")) {
         throw new CensusAnalyzerException(Issue.INCORRECT_FILE)
       }
-      val FileReader = io.Source.fromFile(filePath)
+      val FileReader = Source.fromFile(filePath)
       var rowsCounted = 0
-      for(line <- FileReader.getLines()) {
+      for (line <- FileReader.getLines()) {
         val column = line.split(",").map(_.trim)
-        if(column.length != 4) {
+        if (column.length != headers.length) {
           throw new CensusAnalyzerException(Issue.INVALID_DELIMITER)
         }
-        if(rowsCounted == 0){
-          if(column(0).toLowerCase != "state" || column(1).toLowerCase != "population" ||
-            column(2).toLowerCase != "areainsqkm" || column(3).toLowerCase != "densitypersqkm" ) {
-            throw new CensusAnalyzerException(Issue.INVALID_FIELDS)
-          }
+        if (rowsCounted == 0) {
+          for (headerIndex <- headers.indices)
+            if (column(headerIndex).toLowerCase != headers(headerIndex)) {
+              throw new CensusAnalyzerException(Issue.INVALID_FIELDS)
+            }
         }
+        val colsArray: util.ArrayList[String] = new util.ArrayList()
+        for(stringAdd <- column){
+          colsArray.add(stringAdd)
+        }
+        table.add(colsArray)
         rowsCounted += 1
       }
       FileReader.close()
-      rowsCounted - 1
+      table
     }
     catch {
-      case _:java.io.FileNotFoundException =>
+      case _: java.io.FileNotFoundException =>
         throw new CensusAnalyzerException(Issue.PATH_INCORRECT)
+      case e =>throw e
     }
   }
 }

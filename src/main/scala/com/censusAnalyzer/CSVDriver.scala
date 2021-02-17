@@ -1,10 +1,25 @@
 
 package com.censusAnalyzer
 
+import com.censusAnalyzer.IndiaStateCensusDataAnalyser.{loadIndiaStateCensusData,printStateCensusData,sortStateCensusDataByStateName,table}
+import com.censusAnalyzer.IndiaStateCodeAnalyser.{loadIndiaStateCode,printStateCode,sortStateCodeByStateName}
+import com.censusAnalyzer.exception.CensusAnalyzerException
+
+
 object CSVDriver {
   def main(args: Array[String]): Unit = {
-    val indianStateCensusDataPath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCensusData.csv"
-    val censusAnalyserObject = new CensusAnalyzer()
-    censusAnalyserObject.loadCSVData(indianStateCensusDataPath)
+    try {
+      loadIndiaStateCensusData()
+      loadIndiaStateCode()
+
+      sortStateCensusDataByStateName()
+      printStateCensusData()
+
+      sortStateCodeByStateName()
+      printStateCode()
+    }
+    catch{
+      case e: CensusAnalyzerException => e.printStackTrace()
+    }
   }
 }

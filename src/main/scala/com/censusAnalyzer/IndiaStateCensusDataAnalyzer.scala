@@ -2,6 +2,7 @@ package com.censusAnalyzer
 
 import java.util
 import com.censusAnalyzer.CensusAnalyzer.loadCSVData
+import com.censusAnalyzer.IndiaStateCodeAnalyser.sortStateCodeByColumnIndex
 import com.censusAnalyzer.exception.CensusAnalyzerException
 
 object IndiaStateCensusDataAnalyser {

@@ -7,6 +7,11 @@ import com.censusAnalyzer.exception.CensusAnalyzerException.Issue
 
 import scala.io.Source
 
+/**
+ * Created on 11/30/2020.
+ * Class: CensusLoader.scala
+ * Author: Rajat G.L.
+ */
 object CensusAnalyzer {
   @throws[CensusAnalyzerException]
   def loadCSVData(filePath: String, headers: Array[String]): util.ArrayList[util.ArrayList[String]] = {

@@ -81,4 +81,5 @@ class CensusAnalyserTest extends FunSuite {
     }
     assert(thrown.getMessage === Issue.INVALID_FIELDS)
   }
+
 }

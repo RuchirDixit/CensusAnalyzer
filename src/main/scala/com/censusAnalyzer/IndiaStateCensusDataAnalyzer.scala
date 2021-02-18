@@ -3,6 +3,7 @@ package com.censusAnalyzer
 
 import java.util
 import java.nio.file.{Files, Paths}
+import com.censusAnalyzer.CensusLoader.checkFileProperties
 import com.censusAnalyzer.CSVBuilderFactory.createCSVBuilder
 import com.censusAnalyzer.exception.CensusAnalyzerException
 
@@ -13,9 +14,11 @@ object IndiaStateCensusDataAnalyser {
   @throws[CensusAnalyzerException]
   def loadIndiaStateCensusData(path: String = "asset/IndiaStateCensusData.csv"): Int = {
 
+    checkFileProperties(path, Array[String]("State","Population","AreaInSqKm","DensityPerSqKm"))
+
     val readerStateCensus = Files.newBufferedReader(Paths.get(path))
     table = createCSVBuilder().fetchList(readerStateCensus, classOf[IndiaStateCensus])
-    table.size() - 1
+    table.size()
   }
 
   def sortStateCensusDataByColumnIndex(column: Int): Unit = {

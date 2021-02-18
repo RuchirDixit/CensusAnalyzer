@@ -3,7 +3,7 @@ package com.censusAnalyzer
 
 import java.nio.file.{Files, Paths}
 import java.util
-
+import com.censusAnalyzer.CensusLoader.checkFileProperties
 import com.censusAnalyzer.CSVBuilderFactory.createCSVBuilder
 
 object IndiaStateCodeAnalyser {
@@ -12,9 +12,11 @@ object IndiaStateCodeAnalyser {
 
   def loadIndiaStateCode(path: String = "asset/IndiaStateCode.csv"): Int = {
 
+    checkFileProperties(path, Array[String]("SrNo","State Name","TIN","StateCode"))
+
     val readerStateCensus = Files.newBufferedReader(Paths.get(path))
     table = createCSVBuilder().fetchList(readerStateCensus, classOf[IndiaStateCode])
-    table.size() - 1
+    table.size()
   }
 
   def sortStateCodeByColumnIndex(column: Int): Unit = {

@@ -15,10 +15,11 @@
 // limitations under the License.
 package com.cenusAnalyzerTest
 
-import com.censusAnalyzer.IndiaStateCensusDataAnalyser.loadIndiaStateCensusData
-import com.censusAnalyzer.IndiaStateCodeAnalyser.loadIndiaStateCode
+import com.censusAnalyzer.censusutils.IndiaStateCensusDataAnalyser.loadIndiaStateCensusData
+import com.censusAnalyzer.censusutils.IndiaStateCodeAnalyser.loadIndiaStateCode
 import com.censusAnalyzer.exception.CensusAnalyzerException
 import com.censusAnalyzer.exception.CensusAnalyzerException.Issue
+import com.censusAnalyzer.censusutils.USCensusDataAnalyser.loadUSCensusData
 import org.scalatest.FunSuite
 
 /***
@@ -38,6 +39,11 @@ class CensusAnalyserTest extends FunSuite {
   val wrongIndiaStateCodeFilePath = "./IndiaStateCode.csv"
   val wrongFileTypeIndiaStateCodePath = "asset/IndiaStateCode.pdf"
   val wrongHeaderIndiaStateCodePath = "asset/IndiaStateCodeWrongHeader.csv"
+  //path variables for USStateCensus
+  val usStateCensusDataPath = "asset/USCensusData.csv"
+  val wrongUsStateCensusDataPath = "./USCensusData.csv"
+  val wrongFileTypeUsStateCensusDataPath = "asset/USCensusData.pdf"
+  val wrongHeaderUsStateCensusDataPath = "asset/USCensusDataWrongHeader.csv"
 
   test("givenIndianCensusCSVFileShouldReturnCorrectNumberOfRecords") {
     assert(loadIndiaStateCensusData(indiaStateCensusDataPath) === 29)
@@ -83,4 +89,25 @@ class CensusAnalyserTest extends FunSuite {
     assert(thrown.getMessage === Issue.INVALID_FIELDS)
   }
 
+  test("givenUSCensusCSVFileShouldReturnCorrectNumberOfRecords") {
+    assert(loadUSCensusData(usStateCensusDataPath) === 51)
+  }
+  test("givenUSCensusDataCSVFileIfWrongFilePathShouldThrowException") {
+    val thrown = intercept[CensusAnalyzerException] {
+      loadUSCensusData(wrongUsStateCensusDataPath)
+    }
+    assert(thrown.getMessage === Issue.PATH_INCORRECT)
+  }
+  test("givenUSCensusDataFileIfWrongTypeShouldThrowException") {
+    val thrown = intercept[CensusAnalyzerException] {
+      loadUSCensusData(wrongFileTypeUsStateCensusDataPath)
+    }
+    assert(thrown.getMessage === Issue.INCORRECT_FILE)
+  }
+  test("givenUSCensusDataFileIfWrongHeaderShouldThrowException") {
+    val thrown = intercept[CensusAnalyzerException] {
+      loadUSCensusData(wrongHeaderUsStateCensusDataPath)
+    }
+    assert(thrown.getMessage === Issue.INVALID_FIELDS)
+  }
 }

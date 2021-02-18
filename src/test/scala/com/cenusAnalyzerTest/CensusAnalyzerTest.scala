@@ -19,7 +19,6 @@ import com.censusAnalyzer.IndiaStateCensusDataAnalyser.loadIndiaStateCensusData
 import com.censusAnalyzer.IndiaStateCodeAnalyser.loadIndiaStateCode
 import com.censusAnalyzer.exception.CensusAnalyzerException
 import com.censusAnalyzer.exception.CensusAnalyzerException.Issue
-
 import org.scalatest.FunSuite
 
 /***
@@ -29,15 +28,18 @@ import org.scalatest.FunSuite
  */
 
 class CensusAnalyserTest extends FunSuite {
-  val indiaStateCensusDataPath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCensusData.csv"
+
+  //path variables for IndiaStateCensusData
+  val indiaStateCensusDataPath = "asset/IndiaStateCensusData.csv"
   val wrongFilePathForIndiaStateCensusData = "./IndiaStateCensusData.csv"
-  val wrongTypeOfIndiaStateCensusData = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCensusData.txt"
-  val wrongHeaderIndiaStateCensusPath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCodeWrongHeader.csv"
+  val wrongTypeOfIndiaStateCensusData = "asset/IndiaStateCensusData.pdf"
+  val wrongHeaderIndiaStateCensusPath = "asset/IndiaStateCensusDataWrongHeader.csv"
   //path variables for IndiaStateCode
-  val indiaStateCodeDataPath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCode.csv"
-  val wrongIndiaStateCodeFilePath = "C:\\Users\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCode.csv"
-  val wrongFileTypeIndiaStateCodePath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCode.pdf"
-  val wrongHeaderIndiaStateCodePath = "C:\\Users\\Ruchir Dixit\\IdeaProjects\\Census_Analyzer\\src\\test\\Resources\\IndiaStateCodeWrongHeader.csv"
+  val indiaStateCodeDataPath = "asset/IndiaStateCode.csv"
+  val wrongIndiaStateCodeFilePath = "./IndiaStateCode.csv"
+  val wrongFileTypeIndiaStateCodePath = "asset/IndiaStateCode.pdf"
+  val wrongHeaderIndiaStateCodePath = "asset/IndiaStateCodeWrongHeader.csv"
+
   test("givenIndianCensusCSVFileShouldReturnCorrectNumberOfRecords") {
     assert(loadIndiaStateCensusData(indiaStateCensusDataPath) === 29)
   }

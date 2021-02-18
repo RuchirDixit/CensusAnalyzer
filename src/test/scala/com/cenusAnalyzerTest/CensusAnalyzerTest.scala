@@ -40,23 +40,20 @@ class CensusAnalyserTest extends FunSuite {
   val wrongHeaderIndiaStateCodePath = "asset/IndiaStateCodeWrongHeader.csv"
 
   test("givenIndianCensusCSVFileShouldReturnCorrectNumberOfRecords") {
-    assert(loadIndiaStateCensusData(indiaStateCensusDataPath) === 28)
+    assert(loadIndiaStateCensusData(indiaStateCensusDataPath) === 29)
   }
-
   test("givenIndianCensusDataCSVFileIfWrongFilePathShouldThrowException") {
     val thrown = intercept[CensusAnalyzerException] {
       loadIndiaStateCensusData(wrongFilePathForIndiaStateCensusData)
     }
     assert(thrown.getMessage === Issue.PATH_INCORRECT)
   }
-
   test("givenIndianCensusDataFileIfWrongTypeShouldThrowException") {
     val thrown = intercept[CensusAnalyzerException] {
       loadIndiaStateCensusData(wrongTypeOfIndiaStateCensusData)
     }
     assert(thrown.getMessage === Issue.INCORRECT_FILE)
   }
-
   test("givenIndianCensusDataFileIfWrongHeaderShouldThrowException") {
     val thrown = intercept[CensusAnalyzerException] {
       loadIndiaStateCensusData(wrongHeaderIndiaStateCensusPath)
@@ -65,7 +62,7 @@ class CensusAnalyserTest extends FunSuite {
   }
 
   test("givenIndiaStateCodeCSVFileShouldReturnCorrectNumberOfRecords") {
-    assert(loadIndiaStateCode(indiaStateCodeDataPath) === 36)
+    assert(loadIndiaStateCode(indiaStateCodeDataPath) === 37)
   }
   test("givenIndiaStateCodeCSVFileIfWrongFilePathShouldThrowException") {
     val thrown = intercept[CensusAnalyzerException] {

@@ -1,31 +1,33 @@
+
 package com.censusAnalyzer
 
 import java.util
-import com.censusAnalyzer.CensusAnalyzer.loadCSVData
-import com.censusAnalyzer.IndiaStateCodeAnalyser.sortStateCodeByColumnIndex
+import java.nio.file.{Files, Paths}
+import com.censusAnalyzer.CSVBuilderFactory.createCSVBuilder
 import com.censusAnalyzer.exception.CensusAnalyzerException
 
 object IndiaStateCensusDataAnalyser {
 
-  var table: util.ArrayList[util.ArrayList[String]] = new util.ArrayList()
+  var table: util.List[IndiaStateCensus] = new util.ArrayList()
 
   @throws[CensusAnalyzerException]
   def loadIndiaStateCensusData(path: String = "asset/IndiaStateCensusData.csv"): Int = {
-    val indiaStateCensusDataPath = path
-    table = loadCSVData(indiaStateCensusDataPath, Array("state", "population", "areainsqkm", "densitypersqkm"))
+
+    val readerStateCensus = Files.newBufferedReader(Paths.get(path))
+    table = createCSVBuilder().fetchList(readerStateCensus, classOf[IndiaStateCensus])
     table.size() - 1
   }
 
   def sortStateCensusDataByColumnIndex(column: Int): Unit = {
-    util.Collections.sort(table, (o1: util.ArrayList[String], o2: util.ArrayList[String]) => {
+    util.Collections.sort(table, (o1: IndiaStateCensus, o2: IndiaStateCensus) => {
       try {
-        val o1Int = Integer.parseInt(o1.get(column))
-        val o2Int = Integer.parseInt(o2.get(column))
+        val o1Int = o1.get(column).asInstanceOf[Integer]
+        val o2Int = o2.get(column).asInstanceOf[Integer]
         o1Int.compareTo(o2Int)
       }
       catch{
         case e:Exception =>
-          o1.get(column).compareTo(o2.get(column))
+          o1.get(column).asInstanceOf[String].compareTo(o2.get(column).asInstanceOf[String])
       }
     })
   }
@@ -34,12 +36,13 @@ object IndiaStateCensusDataAnalyser {
     sortStateCensusDataByColumnIndex(0)
   }
 
+  def sortStateCensusDataByPopulation():Unit = {
+    sortStateCensusDataByColumnIndex(1)
+  }
+
   def printStateCensusData(): Unit ={
     for(index <- 0 until table.size()){
-      for(element <- 0 until table.get(index).size()){
-        print(table.get(index).get(element) + " ")
-      }
-      println()
+      println(table.get(index))
     }
   }
 }
